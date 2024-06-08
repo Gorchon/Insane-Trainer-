@@ -85,7 +85,16 @@ const User = () => {
     }
 
     const handleGenerateRAG = async () => {
-        // Add logic to generate RAG question
+        const response = await fetch(`http://localhost:3000/chat/rag`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: form.question }), // Send the question as the message
+        });
+        const data = await response.json();
+        console.log(data);
+        setForm({ ...form, answer: data.response }); // Set the answer from the response
     }
 
     return (
